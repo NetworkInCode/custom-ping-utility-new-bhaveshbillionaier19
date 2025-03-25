@@ -1,89 +1,87 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/waUhK5p8)
+
 # Custom Ping Utility
 
 ## **Objective**
 The goal of this assignment is to develop a custom **ping utility** that replicates the basic functionality of the standard `ping` tool. This tool will allow users to test network reachability and measure round-trip time (RTT) for packets sent to a target IP address.
 
----
+## Setup & Installation
 
-## **Problem Statement**
-Your task is to build a **custom ping utility** that performs the following functions:
+### Prerequisites
+- **Python 3.6+** (tested on 3.8+)
+- **Linux/macOS** (requires root privileges for raw sockets)
+- `sudo` access
 
-- **Send ICMP echo requests** to a target IP address.
-- **Receive and process ICMP echo replies** from the target.
-- **Calculate and display round-trip time (RTT)** for each ICMP echo request-reply cycle.
-- **[Bonus] Provide statistics** on:
-  - Packet loss
-  - Minimum RTT
-  - Maximum RTT
-  - Average RTT
-  - Standard deviation of RTT
-- **[Bonus] Provide options** to configure the utility:
-  - Choose the network interface for sending packets.
-  - Set the Time-To-Live (TTL) value.
-  - Support both **IPv4 and IPv6**.
-
----
-
-## **Repository Setup**
-1. **Clone the repository:**
+### Installation
+1. Clone the repository :
    ```sh
-   git clone <repo-link>
+   git clone https://github.com/yourusername/custom-ping-utility.git
    cd custom-ping-utility
    ```
-2. **Modify and extend the provided template** according to the requirements.
+ 2. Run the test file through makefile (for linux and macOS)
+    ```sh
+    sudo make test
+    ```
 
----
+## Usages
 
-## **Implementation Guidelines**
-- Implement socket programming to handle **ICMP (Internet Control Message Protocol) packets**.
-- Ensure compatibility with both **Linux and macOS systems**.
-- Use appropriate **error handling** to deal with network timeouts, unreachable hosts, and permission issues.
-- Structure your code to allow easy extension for bonus features.
-
----
-
-## **Documentation Requirements**
-Your submission must include:
-- A **README.md** file with:
-  - Clear **setup and installation instructions**.
-  - **Usage examples** with command-line arguments.
-  - **Required dependencies** and supported versions.
-- **Well-documented code** with meaningful comments.
-- A **script (`scripts/test.sh`)** to test the functionality of your custom ping utility.
-
----
-
-## **Example Repository Structure**
+### Basic usage
+1.Ping an IPv4 Address (Default)
+```sh
+sudo python3 src/main.py 8.8.8.8
 ```
-/ (Root)
-│── README.md          # Detailed assignment instructions
-│── Makefile           # Build and run commands (if applicable)
-│── src/
-│   │── main.py        # Main Python script for the ping utility
-│   │── icmp_handler.py # ICMP packet handling logic
-│── scripts/
-│   │── test.sh        # Script to test the program
+ Sends 4 ICMP echo requests (default count) to the IPv4 address 8.8.8.8.
+
+
+2.Ping an IPv6 Address
+```sh
+sudo python3 src/main.py 2001:4860:4860::8888 -6
+```
+Sends 4 ICMPv6 echo requests to the IPv6 address 2001:4860:4860::8888.
+
+### Custom Packet Count
+Send 10 Packets
+```sh
+sudo python3 src/main.py 8.8.8.8 -c 10
+```
+Sends 10 ICMP echo requests to 8.8.8.8
+
+### Custom TTL (Time-To-Live)
+```sh
+sudo python3 src/main.py 8.8.8.8 -t 128
+```
+Sends ICMP echo requests with a TTL of 128
+
+### Specify Network Interface
+
+```sh
+sudo python3 src/main.py 127.0.0.1 -I lo
+```
+Sends ICMP echo requests to 127.0.0.1 using the lo (loopback) interface , 
+or can use eth0 etc.
+
+### Invalid IP Address
+Test Error Handling
+```sh
+sudo python3 src/main.py invalid.ip.address
 ```
 
----
+### Help Message
+Displays the help message with all available command-line arguments
 
-## **Resources**
-- [What are Ping and Traceroute Really?](https://blog.apnic.net/2021/06/21/what-are-ping-and-traceroute-really/)
-- [Socket Programming Guide](https://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/socket.html)
-- [Understanding ICMP and Ping](https://avocado89.medium.com/ping-icmp-32e9eba81623)
-- **Socket Programming in Python** (for implementation reference)
+```sh
+python3 src/main.py -h
+```
 
----
+## Versions and Dependencies required
+1. Ensure Python 3.6+ is installed on your system. You can check the installed version using:
+```sh
+python3 --version
+```
+2. Ensure you have sudo access to run the utility:
+```sh
+sudo -v
+```
 
-## **Submission Instructions**
-1. Complete your implementation and ensure it meets the assignment requirements.
-2. Update the `README.md` with detailed instructions on how to build and run your solution.
-3. **Make a pull request (PR)** to submit your final code.
-4. Your PR should include:
-   - A description of your implementation.
-   - Any limitations or known issues.
-   - Example test cases demonstrating the tool's functionality.
 
-**Happy coding! 🚀**
 
+   

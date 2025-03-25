@@ -10,6 +10,8 @@ import struct
 import select
 import time
 
+# flushh true for every print statement as we want output immediately
+
 # handling ipv4 and ipv6 
 ICMP_ECHO_REQUEST = 8
 ICMP_ECHO_REPLY = 0
@@ -88,12 +90,12 @@ def send_icmp_packet(target_ip, packet_id, seq, ttl=64, interface=None, ip_versi
     else:
         sock.setsockopt(socket.IPPROTO_IPV6, socket.IPV6_UNICAST_HOPS, ttl)
 
-    packet = create_icmp_packet(packet_id, seq, ip_version)
-    start_time = time.time()
+    packet = create_icmp_packet(packet_id, seq, ip_version) #calling create icmp function to create the icmp packet
+    start_time = time.time()   # start recording time after the creation and sending
 
     print(f"Sending packet to {target_ip}...",flush=True)
     try:
-        sock.sendto(packet, (target_ip, 0))
+        sock.sendto(packet, (target_ip, 0)) #sending
     except socket.error as e:
         print(f"Error sending packet: {e}",flush=True)
         return None, None

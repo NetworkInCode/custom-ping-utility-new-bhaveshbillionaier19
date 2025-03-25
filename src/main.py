@@ -30,6 +30,7 @@ def validate_ip_address(ip, is_ipv6):
     except socket.error:
         return False
 
+# parser used to get values enter by user in terminal
 def main():
     parser = argparse.ArgumentParser(description='Custom Ping Utility')
     parser.add_argument('target', help='Target IP address')
