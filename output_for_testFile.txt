@@ -1,0 +1,147 @@
+bash scripts/test.sh
+Root check passed.
+
+Running test: Basic IPv4 ping...
+Command: python3 -u src/main.py 8.8.8.8 -c 2
+Output:
+PING 8.8.8.8 using Python with 2 packets...
+Creating socket for 8.8.8.8...
+Socket created: <socket.socket fd=3, family=2, type=3, proto=1, laddr=('0.0.0.0', 1)>
+Sending packet to 8.8.8.8...
+Packet sent successfully.
+Waiting for reply...
+Received reply from 8.8.8.8
+Reply from 8.8.8.8: time=30.80ms
+Creating socket for 8.8.8.8...
+Socket created: <socket.socket fd=3, family=2, type=3, proto=1, laddr=('0.0.0.0', 1)>
+Sending packet to 8.8.8.8...
+Packet sent successfully.
+Waiting for reply...
+Received reply from 8.8.8.8
+Reply from 8.8.8.8: time=30.12ms
+
+--- Statistics ---
+2 packets transmitted, 2 received, 0.00% packet loss
+Minimum RTT: 30.12ms
+Maximum RTT: 30.80ms
+Average RTT: 30.46ms
+Standard Deviation: 0.34ms
+Exit status: 0
+PASSED
+
+Running test: IPv6 ping...
+Command: python3 -u src/main.py 2001:4860:4860::8888 -6 -c 2
+Output:
+PING 2001:4860:4860::8888 using Python with 2 packets...
+Creating socket for 2001:4860:4860::8888...
+Socket created: <socket.socket fd=3, family=10, type=3, proto=58, laddr=('::', 58, 0, 0)>
+Sending packet to 2001:4860:4860::8888...
+Packet sent successfully.
+Waiting for reply...
+Received reply from 2001:4860:4860::8888
+Reply from 2001:4860:4860::8888: time=18.95ms
+Creating socket for 2001:4860:4860::8888...
+Socket created: <socket.socket fd=3, family=10, type=3, proto=58, laddr=('::', 58, 0, 0)>
+Sending packet to 2001:4860:4860::8888...
+Packet sent successfully.
+Waiting for reply...
+Received reply from 2001:4860:4860::8888
+Reply from 2001:4860:4860::8888: time=15.96ms
+
+--- Statistics ---
+2 packets transmitted, 2 received, 0.00% packet loss
+Minimum RTT: 15.96ms
+Maximum RTT: 18.95ms
+Average RTT: 17.45ms
+Standard Deviation: 1.49ms
+Exit status: 0
+PASSED
+
+Running test: Custom TTL...
+Command: python3 -u src/main.py 8.8.8.8 -t 128 -c 2
+Output:
+PING 8.8.8.8 using Python with 2 packets...
+Creating socket for 8.8.8.8...
+Socket created: <socket.socket fd=3, family=2, type=3, proto=1, laddr=('0.0.0.0', 1)>
+Sending packet to 8.8.8.8...
+Packet sent successfully.
+Waiting for reply...
+Received reply from 8.8.8.8
+Reply from 8.8.8.8: time=29.99ms
+Creating socket for 8.8.8.8...
+Socket created: <socket.socket fd=3, family=2, type=3, proto=1, laddr=('0.0.0.0', 1)>
+Sending packet to 8.8.8.8...
+Packet sent successfully.
+Waiting for reply...
+Received reply from 8.8.8.8
+Reply from 8.8.8.8: time=30.80ms
+
+--- Statistics ---
+2 packets transmitted, 2 received, 0.00% packet loss
+Minimum RTT: 29.99ms
+Maximum RTT: 30.80ms
+Average RTT: 30.39ms
+Standard Deviation: 0.40ms
+Exit status: 0
+PASSED
+
+Running test: Interface specification...
+Command: python3 -u src/main.py 127.0.0.1 -I lo -c 2
+Output:
+PING 127.0.0.1 using Python with 2 packets...
+Creating socket for 127.0.0.1...
+Socket created: <socket.socket fd=3, family=2, type=3, proto=1, laddr=('0.0.0.0', 1)>
+Sending packet to 127.0.0.1...
+Packet sent successfully.
+Waiting for reply...
+Received reply from 127.0.0.1
+Reply from 127.0.0.1: time=0.06ms
+Creating socket for 127.0.0.1...
+Socket created: <socket.socket fd=3, family=2, type=3, proto=1, laddr=('0.0.0.0', 1)>
+Sending packet to 127.0.0.1...
+Packet sent successfully.
+Waiting for reply...
+Received reply from 127.0.0.1
+Reply from 127.0.0.1: time=0.03ms
+
+--- Statistics ---
+2 packets transmitted, 2 received, 0.00% packet loss
+Minimum RTT: 0.03ms
+Maximum RTT: 0.06ms
+Average RTT: 0.05ms
+Standard Deviation: 0.01ms
+Exit status: 0
+PASSED
+
+Running test: Invalid IP address...
+Command: python3 -u src/main.py invalid.ip.address
+Output:
+Error: Invalid IPv4 address: invalid.ip.address
+Exit status: 1
+PASSED
+
+Running test: Help message...
+Command: python3 -u src/main.py -h
+Output:
+usage: main.py [-h] [-c COUNT] [-t TTL] [-I INTERFACE] [-6] target
+
+Custom Ping Utility
+
+positional arguments:
+  target                Target IP address
+
+options:
+  -h, --help            show this help message and exit
+  -c COUNT, --count COUNT
+                        Number of packets to send
+  -t TTL, --ttl TTL     Time-To-Live value
+  -I INTERFACE, --interface INTERFACE
+                        Network interface to use
+  -6, --ipv6            Use IPv6
+Exit status: 0
+PASSED
+
+Test Results:
+Total: 6
+Passed: 6
+Failed: 0
